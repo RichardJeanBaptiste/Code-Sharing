@@ -31,11 +31,11 @@ export default function ShareCode({params}: any) {
         axios.post("/api/get_code", {
             id: params.id
         }).then((res) => {
-            //console.log(res.data.code);
+            console.log(res.data.code);
             SetCode(res.data.code);
         }).catch((err) => {
             console.log(err);
-        })
+        });
     },[]);
   
     const shareCode = () => {

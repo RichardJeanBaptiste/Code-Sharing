@@ -18,11 +18,11 @@ export async function POST(request: Request){
             return docs;
         })
 
-        mongoose.disconnect();
         return NextResponse.json(query, {status: 200});
 
     } catch (error) {
         
+        console.log(error);
         return NextResponse.json({msg: "Server Error :("}, {status: 500});
     }
 }

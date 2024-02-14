@@ -9,7 +9,7 @@ import Editor from '@monaco-editor/react';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShareNodes } from '@fortawesome/free-solid-svg-icons/faShareNodes';
+import { faLink, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -42,6 +42,7 @@ export default function Home() {
   const [language, SetLanguage] = useState("html");
   const [lightMode, SetLightMode] = useState("vs-light");
   const [disableButton, SetDisableButton] = useState(false);
+  const [codeLink, SetCodeLink] = useState("");
 
 
   const handleEditorChange = (newCode: any) => {
@@ -54,23 +55,42 @@ export default function Home() {
           code: code,
           newCode: true
       }).then((res)=> {
-        console.log(res.data);
+        SetDisableButton(true);
+        SetCodeLink(res.data.msg);
       }).catch((err) => {
         console.log(err);
       })
   }
 
+  const shortUrl = (x: string) => {
+    let short = "..." + x.slice(40, x.length);
+    return short;
+  }
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(codeLink);
+  }
+
   const ShareButton = () => {
     if(disableButton){
         return (
-            <Button variant="" style={{ position: 'absolute', right: '10px', borderRadius: '7%'}} disabled onClick={shareCode}>
-                <span><FontAwesomeIcon icon={faShareNodes} />{'  '}</span>
-                Share
+          <div style={{ position: 'absolute', right: '10px' }}>
+            <Button variant="link" onClick={copyLink}>
+              <span>
+                <FontAwesomeIcon icon={faLink} /> {' '}
+              </span>
+              {shortUrl(codeLink)}
             </Button>
+            <Button variant="secondary" style={{ borderRadius: '7%'}} disabled onClick={shareCode}>
+                  <span><FontAwesomeIcon icon={faShareNodes} />{'  '}</span>
+                  Share
+            </Button>
+          </div>
+            
         )
     } else {
         return (
-            <Button variant="" style={{ position: 'absolute', right: '10px', borderRadius: '7%'}} active onClick={shareCode}>
+            <Button variant="primary" style={{ position: 'absolute', right: '10px', borderRadius: '7%'}} active onClick={shareCode}>
                 <span><FontAwesomeIcon icon={faShareNodes} />{'  '}</span>
                 Share
             </Button>

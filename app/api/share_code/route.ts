@@ -12,7 +12,7 @@ export async function POST(request: Request){
             await mongoose.connect(mongo_uri);
         }
        
-        let data = await request.json();
+         let data = await request.json();
 
         if(data.newCode === true){
             let newCodeSnippet = new codeSnippet({
@@ -22,9 +22,7 @@ export async function POST(request: Request){
     
             await newCodeSnippet.save();
         } else {
-
-            console.log("abc")
-
+                
             const filter = {id: data.id};
             const update = {code: data.code};
             let query = await codeSnippet.findOneAndUpdate(filter, update, {
@@ -33,11 +31,8 @@ export async function POST(request: Request){
 
             await query.save();
         }
-
-       
-        mongoose.disconnect();
         
-        return NextResponse.json({"msg": `localhost:3000/sc/${data.id}`}, {status: 200});
+        return NextResponse.json({"msg": `localhost:3000/share/${data.id}`}, {status: 200});
 
     } catch (error) {
         
