@@ -53,6 +53,7 @@ export default function Home() {
       axios.post('/api/share_code', {
           id: uuidv4(),
           code: code,
+          language: language,
           newCode: true
       }).then((res)=> {
         SetDisableButton(true);

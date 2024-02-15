@@ -11,7 +11,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareNodes } from '@fortawesome/free-solid-svg-icons/faShareNodes';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 
 
 export default function ShareCode({params}: any) {
@@ -31,8 +30,9 @@ export default function ShareCode({params}: any) {
         axios.post("/api/get_code", {
             id: params.id
         }).then((res) => {
-            console.log(res.data.code);
+            console.log(res.data);
             SetCode(res.data.code);
+            SetLanguage(res.data.language);
         }).catch((err) => {
             console.log(err);
         });
@@ -40,11 +40,16 @@ export default function ShareCode({params}: any) {
   
     const shareCode = () => {
         axios.post('/api/share_code', {
-            id: uuidv4(),
+            id: params.id,
             code: code,
+            language: language,
             newCode: false,
         }).then((res)=> {
           console.log(res.data);
+          if(res.data.msg === 'Code Saved'){
+            alert('Code Saved');
+            SetDisableButton(true);
+          }
         }).catch((err) => {
           console.log(err);
         })
@@ -97,7 +102,7 @@ export default function ShareCode({params}: any) {
             height="77vh" 
             language={language} 
             theme={lightMode}
-            defaultValue={code}
+            value={code}
             onChange={handleEditorChange} 
           />
           <div className={styles.button_container}>

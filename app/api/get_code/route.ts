@@ -4,13 +4,22 @@ import { codeSnippet } from "../Schemas";
 import 'dotenv/config';
 
 
+const connectToMongo = async () => {
+
+    let mongo_uri:string | undefined = process.env.MONGO_URI;
+
+    if(mongo_uri == undefined){
+        return NextResponse.json({"msg": "Failed to Connect to Server"}, {status: 404});
+    } else {
+        await mongoose.connect(mongo_uri);
+        return "Connected to client";
+    }
+}
+
 export async function POST(request: Request){
     try {
-        let mongo_uri:string | undefined = process.env.MONGO_URI;
-
-        if(mongo_uri != undefined){
-            await mongoose.connect(mongo_uri);
-        }
+        
+        await connectToMongo();
        
         let data = await request.json();
 

@@ -17,22 +17,25 @@ export async function POST(request: Request){
         if(data.newCode === true){
             let newCodeSnippet = new codeSnippet({
                 id: data.id,
-                code: data.code
+                code: data.code,
+                language: data.language,
             })
     
             await newCodeSnippet.save();
+            return NextResponse.json({"msg": `localhost:3000/share/${data.id}`}, {status: 200});
         } else {
                 
             const filter = {id: data.id};
-            const update = {code: data.code};
+            const update = {code: data.code, language: data.language};
             let query = await codeSnippet.findOneAndUpdate(filter, update, {
                 new: true
             });
 
             await query.save();
+            return NextResponse.json({"msg": 'Code Saved'}, {status: 200});
         }
         
-        return NextResponse.json({"msg": `localhost:3000/share/${data.id}`}, {status: 200});
+        
 
     } catch (error) {
         
