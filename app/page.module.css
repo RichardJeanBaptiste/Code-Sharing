@@ -37,5 +37,27 @@
     margin-top: 4%;
 }
 
+@media only screen and (max-width: 1024px) {
+    .editor_container{
+        position: absolute;
+        top: 88%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 88vw;
+        height: 109vh;
+        background-color: white;
+    }
+}
 
+@media only screen and (max-width: 640px) {
+    .editor_container{
+        position: absolute;
+        top: 91%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 96vw;
+        height: 115vh;
+        background-color: white;
+    }
+}
 

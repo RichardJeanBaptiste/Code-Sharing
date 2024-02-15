@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLink, faShareNodes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import "./page.module.css";
 
 //#9b69ee
 
@@ -43,6 +44,34 @@ export default function Home() {
   const [lightMode, SetLightMode] = useState("vs-light");
   const [disableButton, SetDisableButton] = useState(false);
   const [codeLink, SetCodeLink] = useState("");
+  const [screenWidth, SetScreenWidth] = useState(window.innerWidth);
+  const [editorWidth, SetEditorWidth] = useState("");
+  const [editorHeight, SetEditorHeight] = useState("");
+
+
+
+  const handleResize = () => {
+    SetScreenWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    if(screenWidth >= 1280){
+      SetEditorWidth("70vw");
+      SetEditorHeight("77vh");
+    } else if(screenWidth >= 1024){
+      SetEditorWidth("88vw");
+      SetEditorHeight("92vh");
+    } else if(screenWidth >= 640){
+      SetEditorWidth("96vw");
+      SetEditorHeight("100vh");
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+  },[]);
 
 
   const handleEditorChange = (newCode: any) => {
@@ -124,8 +153,8 @@ export default function Home() {
 
       <div className={styles.editor_container}>
         <Editor 
-          width= "70vw"
-          height="77vh" 
+          width={editorWidth}
+          height={editorHeight} 
           language={language} 
           theme={lightMode}
           defaultValue={code}
