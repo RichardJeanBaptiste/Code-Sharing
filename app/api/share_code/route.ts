@@ -39,7 +39,8 @@ export async function POST(request: Request){
 
     } catch (error) {
 
-        console.log("===========================================================================");
+        
+        console.log(process.env.MONGO_URI);
         console.log(error);
         
         return NextResponse.json({msg: "Server Error :("}, {status: 500});
