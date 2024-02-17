@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { codeSnippet } from "../Schemas";
-import 'dotenv/config';
+//import 'dotenv/config';
 
 
 const connectToMongo = async () => {

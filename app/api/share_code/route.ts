@@ -22,7 +22,7 @@ export async function POST(request: Request){
             })
     
             await newCodeSnippet.save();
-            return NextResponse.json({"msg": `localhost:3000/share/${data.id}`}, {status: 200});
+            return NextResponse.json({"msg": `https://code-sharing-rho.vercel.app/share/${data.id}`}, {status: 200});
         } else {
                 
             const filter = {id: data.id};
