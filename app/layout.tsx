@@ -24,7 +24,7 @@ export default function RootLayout({
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
         crossOrigin="anonymous"
       />
-      <body className={inter.className} style={{ backgroundColor: '#9b69ee'}}>{children}</body>
+      <body className={inter.className} style={{width:'100vw', backgroundColor: '#9b69ee'}}>{children}</body>
     </html>
   );
 }

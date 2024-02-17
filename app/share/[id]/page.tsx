@@ -27,6 +27,7 @@ export default function ShareCode({params}: any) {
     }
 
     useEffect(() => {
+      
         axios.post("/api/get_code", {
             id: params.id
         }).then((res) => {
@@ -36,7 +37,8 @@ export default function ShareCode({params}: any) {
         }).catch((err) => {
             console.log(err);
         });
-    },[]);
+    },[params.id]);
+
   
     const shareCode = () => {
         axios.post('/api/share_code', {
@@ -98,8 +100,8 @@ export default function ShareCode({params}: any) {
   
         <div className={styles.editor_container}>
           <Editor 
-            width= "70vw"
-            height="77vh" 
+            width={"100%"}
+            height={"88%"} 
             language={language} 
             theme={lightMode}
             value={code}

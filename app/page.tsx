@@ -44,36 +44,7 @@ export default function Home() {
   const [lightMode, SetLightMode] = useState("vs-light");
   const [disableButton, SetDisableButton] = useState(false);
   const [codeLink, SetCodeLink] = useState("");
-  const [screenWidth, SetScreenWidth] = useState(window.innerWidth);
-  const [editorWidth, SetEditorWidth] = useState("");
-  const [editorHeight, SetEditorHeight] = useState("");
-
-
-
-  const handleResize = () => {
-    SetScreenWidth(window.innerWidth);
-  }
-
-  useEffect(() => {
-    if(screenWidth >= 1280){
-      SetEditorWidth("70vw");
-      SetEditorHeight("77vh");
-    } else if(screenWidth >= 1024){
-      SetEditorWidth("88vw");
-      SetEditorHeight("92vh");
-    } else if(screenWidth >= 640){
-      SetEditorWidth("96vw");
-      SetEditorHeight("100vh");
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-        window.removeEventListener('resize', handleResize);
-    };
-  },[]);
-
-
+  
   const handleEditorChange = (newCode: any) => {
       SetCode(newCode);
   }
@@ -135,6 +106,7 @@ export default function Home() {
           src={backImg}
           fill={true}
           alt="Picture of the author"
+          priority={true}
         />
       </div>
       
@@ -153,8 +125,8 @@ export default function Home() {
 
       <div className={styles.editor_container}>
         <Editor 
-          width={editorWidth}
-          height={editorHeight} 
+          width={"100%"}
+          height={"88%"} 
           language={language} 
           theme={lightMode}
           defaultValue={code}
@@ -192,3 +164,29 @@ export default function Home() {
     </main>
   );
 }
+
+/***
+ * @media only screen and (max-width: 1024px) {
+    .editor_container{
+        position: absolute;
+        top: 88%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 88vw;
+        height: 109vh;
+        background-color: white;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .editor_container{
+        position: absolute;
+        top: 91%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 96vw;
+        height: 115vh;
+        background-color: white;
+    }
+}
+ */
